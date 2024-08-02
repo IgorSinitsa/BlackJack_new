@@ -1,5 +1,5 @@
 class Gamer
-  attr_reader :cards, :many, :pay_money, :scope, :name, :bonus, :type_gamer
+  attr_reader :cards, :money, :pay_money, :scope, :name, :bonus, :type_gamer
   TOTAL_BID = 10
 
   def initialize(name, money = 100)
@@ -25,21 +25,13 @@ class Gamer
     @deck = deck
   end
 
-  def _pay_money
-    if @pay_money >= TOTAL_BID
-      @money -= TOTAL_BID
-      TOTAL_BID
-    else
-      0
-    end
-  end
-
   def bid
     if @money >= TOTAL_BID
       @money -= TOTAL_BID
       @pay_money = TOTAL_BID
       true
     else
+      @pay_money = 0
       false
     end
   end

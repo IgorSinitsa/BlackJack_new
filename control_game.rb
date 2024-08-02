@@ -18,11 +18,13 @@ class ControlGame
   def stop_game(gamers)
     win_scope = 0
     @win_gamers, win_gamers = []
+    puts "Игра окончена"
     gamers.each do |gamer|
       scope = 0
       scope = gamer.scope if gamer.scope <= 21
       scope = gamer.bonus + gamer.scope if (gamer.bonus + gamer.scope) <= 21
-      win_gamers << gamer if win_scope == scope
+      show_card(gamer)
+      win_gamers << gamer if win_scope == scope && win_scope != 0
 
       if scope > win_scope
         win_gamers = [gamer]
@@ -30,7 +32,6 @@ class ControlGame
       end
     end
     @win_gamers = win_gamers
-
   end
 
   def play_type(gamers)
@@ -40,15 +41,25 @@ class ControlGame
   end
 
   def human(gamer)
-    gamer.take_card if @round == 1
     show_card(gamer)
+    @round == 1 ? gamer.take_card : menu(gamer)
+  end
+
+  def menu(gamer)
+    puts "Выберите действие"
+    puts "0 - открыть карты"
+    puts "1 - пропустить"
+    puts "2 - взять карту" if gamer.cards.count == round - 1
+    number = gets.chomp.to_i
+    @stop_game = true if number == 0
+    gamer.take_card if number ==2 && gamer.cards.count == round - 1
+
   end
 
   def robot(gamer)
     gamer.take_card if @round <= 2
     gamer.take_card if @round == 3 && (gamer.scope + gamer.bonus) <= 17
     show_card_robot(gamer)
-    show_card(gamer)
   end
 
   def show_card_robot(gamer)

@@ -6,7 +6,7 @@ class Casino
     @gamers = []
     @total_money = 0
     @control_game = nil
-    @win_gamer = []
+    @win_gamers = []
   end
 
   def get_gamer(gamer)
@@ -17,6 +17,20 @@ class Casino
     @gamers.each { |gamer| @bid += gamer.pay_many }
   end
 
+  def start
+    loop do
+      @gamers.each do |gamer|
+        gamer.init
+        puts "У игрока #{gamer.name} #{gamer.money} монет"
+      end
+      start_game
+      puts "Если хотите продолжить нажмите  ввод, если нет то любую клавишу"
+      print ">"
+      symbol = gets.chop.strip
+      break if symbol.length >= 1
+    end
+  end
+
   def start_game
     @gamers.each do |gamer|
       raise BlackJackError, "Нет монет на ставку у игрока #{gamer.name}" unless gamer.bid
@@ -25,16 +39,27 @@ class Casino
     loop do
       break unless @control_game.play(self)
     end
-   puts  @control_game.win_gamers
+    win_gamer(@control_game.win_gamers)
   end
-
-
 
   def get_game(game)
     @control_game = game
   end
 
-  def win_gamer(gamer)
-    @win_gamer << gamer
+  def win_gamer(gamers)
+    @win_gamers << gamers
+    if !gamers.nil?
+      count = gamers.count
+      gamers.each do |gamer|
+        puts "Выиграл игрок #{gamer.name} , сумма выигрыша #{@total_money / count}"
+        gamer.win(@total_money / count)
+      end
+    else
+      puts "Выигрывших нет, ставки возвращаются игрокам"
+      count = @gamers.count
+      @gamers.each {|gamer| gamer.win(@total_money / count) }
+
+    end
+    @total_money = 0
   end
 end

@@ -1,7 +1,9 @@
 class Dealer < Gamer
-  def initialize(name, money)
+  def initialize(name = "Dealer", money = 100)
+    @@count = @@count ||=0
+    @@count +=1
+    @name = "#{name} #{@@count} "
     super
-    @many = 100
     @type_gamer = :robot
   end
 end
