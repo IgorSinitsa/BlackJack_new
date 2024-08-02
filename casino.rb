@@ -57,7 +57,6 @@ class Casino
       end
     else
       puts "Выигрывших нет, ставки остаются в банке"
-
     end
   end
 end
