@@ -6,7 +6,7 @@ class Casino
     @gamers = []
     @total_money = 0
     @control_game = nil
-    @win_gamer =[]
+    @win_gamer = []
   end
 
   def get_gamer(gamer)
@@ -25,30 +25,15 @@ class Casino
     loop do
       break unless @control_game.play(self)
     end
-    # (1..3).each do |index|
-    #   step_game
-    #   show_cards
-    # rescue BlackJackError => e
-    #   puts e
-    #   # stop_game
-    # end
+   puts  @control_game.win_gamers
   end
 
-  # def show_cards
-  #   @gamers.each do |gamer|
-  #     puts "Игрок #{gamer.name} - очки #{gamer.scope}"
-  #     puts "#{gamer.cards}"
-  #     raise BlackJackError, "У игрока #{gamer.name}  21 очко" if (gamer.scope + gamer.bonus) == 21
-  #   end
-  # end
 
-  # def step_game
-  #   @gamers.each { |gamer| gamer.take_card }
-  # end
 
   def get_game(game)
     @control_game = game
   end
+
   def win_gamer(gamer)
     @win_gamer << gamer
   end
