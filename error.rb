@@ -1,0 +1,3 @@
+class BlackJackError < StandardError
+
+end
