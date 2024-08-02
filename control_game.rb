@@ -11,9 +11,10 @@ class ControlGame
   end
 
   protected
-  def stop_game
 
+  def stop_game(gamers)
   end
+
   def play_type(gamers)
     gamers.each do |gamer|
       method(gamer.type_gamer).call(gamer)
@@ -23,13 +24,14 @@ class ControlGame
   def human(gamer)
     gamer.take_card
     puts "Игрок #{gamer.name} - очки #{gamer.scope}"
-      puts "#{gamer.cards}"
+    puts "#{gamer.cards}"
   end
 
   def robot(gamer)
-    gamer.take_card
-    puts "Игрок #{gamer.name} - очки #{gamer.scope}"
-      puts "#{gamer.cards}"
+    gamer.take_card if @round <=2
+    gamer.take_card if @round ==3 && (gamer.scope + gamer.bonus) <= 17
+    puts "Игрок #{gamer.name} - очки #{gamer.scope + gamer.bonus}"
+    puts "#{gamer.cards}"
   end
 
   def in_round(gamers)
@@ -39,6 +41,7 @@ class ControlGame
       stop_game(gamers)
       false
     else
+      puts "Раунд #{@round}"
       play_type(gamers)
       true
     end
