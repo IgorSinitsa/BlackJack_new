@@ -2,14 +2,14 @@ class ControlGame
   attr_reader :number_rounds, :round, :win_gamers
 
   def initialize
-    @name = "Black Jack"
+    @name = 'Black Jack'
     @number_rounds = 3
     @round = 0
     @stop_game = false
   end
 
   def play(casino)
-    puts "Игра #{@name} в заведении #{casino.name} на кону #{casino.total_money} монет " if round == 0
+    puts "Игра #{@name} в заведении #{casino.name} на кону #{casino.total_money} монет " if round.zero?
     in_round(casino.gamers)
   end
 
@@ -18,7 +18,7 @@ class ControlGame
   def stop_game(gamers)
     win_scope = 0
     @win_gamers, win_gamers = []
-    puts "Игра окончена"
+    puts 'Игра окончена'
     gamers.each do |gamer|
       scope = 0
       scope = gamer.scope if gamer.scope <= 21
@@ -46,14 +46,13 @@ class ControlGame
   end
 
   def menu(gamer)
-    puts "Выберите действие"
-    puts "0 - открыть карты"
-    puts "1 - пропустить"
-    puts "2 - взять карту" if gamer.cards.count == round - 1
+    puts 'Выберите действие'
+    puts '0 - открыть карты'
+    puts '1 - пропустить'
+    puts '2 - взять карту' if gamer.cards.count == round - 1
     number = gets.chomp.to_i
-    @stop_game = true if number == 0
-    gamer.take_card if number ==2 && gamer.cards.count == round - 1
-
+    @stop_game = true if number.zero?
+    gamer.take_card if number == 2 && gamer.cards.count == round - 1
   end
 
   def robot(gamer)
@@ -64,8 +63,8 @@ class ControlGame
 
   def show_card_robot(gamer)
     puts "Игрок #{gamer.name} "
-    print "["
-    gamer.cards.each { |card| print " * " }
+    print '['
+    gamer.cards.each { |_card| print ' * ' }
     print "] \n"
   end
 

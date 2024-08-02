@@ -24,16 +24,17 @@ class Casino
         puts "У игрока #{gamer.name} #{gamer.money} монет"
       end
       start_game
-      puts "Если хотите продолжить нажмите  ввод, если нет то любую клавишу"
-      print ">"
+      puts 'Если хотите продолжить нажмите  ввод, если нет то любую клавишу'
+      print '>'
       symbol = gets.chop.strip
-      break if symbol.length >= 1
+      break unless symbol.empty?
     end
   end
 
   def start_game
     @gamers.each do |gamer|
       raise BlackJackError, "Нет монет на ставку у игрока #{gamer.name}" unless gamer.bid
+
       @total_money += gamer.pay_money
     end
     loop do
@@ -56,7 +57,7 @@ class Casino
       end
       @total_money = 0
     else
-      puts "Выигрывших нет, ставки остаются в банке"
+      puts 'Выигрывших нет, ставки остаются в банке'
     end
   end
 end

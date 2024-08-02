@@ -1,5 +1,6 @@
 class Gamer
   attr_reader :cards, :money, :pay_money, :scope, :name, :bonus, :type_gamer
+
   TOTAL_BID = 10
 
   def initialize(name, money = 100)
@@ -40,8 +41,7 @@ class Gamer
     @money += money
   end
 
-  def play
-  end
+  def play; end
 
   def init
     @cards = []
