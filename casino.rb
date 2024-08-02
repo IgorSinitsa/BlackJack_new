@@ -58,7 +58,6 @@ class Casino
       puts "Выигрывших нет, ставки возвращаются игрокам"
       count = @gamers.count
       @gamers.each {|gamer| gamer.win(@total_money / count) }
-
     end
     @total_money = 0
   end
