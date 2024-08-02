@@ -6,6 +6,7 @@ class Casino
     @gamers = []
     @total_money = 0
     @control_game = nil
+    @win_gamer =[]
   end
 
   def get_gamer(gamer)
@@ -33,19 +34,22 @@ class Casino
     # end
   end
 
-  def show_cards
-    @gamers.each do |gamer|
-      puts "Игрок #{gamer.name} - очки #{gamer.scope}"
-      puts "#{gamer.cards}"
-      raise BlackJackError, "У игрока #{gamer.name}  21 очко" if (gamer.scope + gamer.bonus) == 21
-    end
-  end
+  # def show_cards
+  #   @gamers.each do |gamer|
+  #     puts "Игрок #{gamer.name} - очки #{gamer.scope}"
+  #     puts "#{gamer.cards}"
+  #     raise BlackJackError, "У игрока #{gamer.name}  21 очко" if (gamer.scope + gamer.bonus) == 21
+  #   end
+  # end
 
-  def step_game
-    @gamers.each { |gamer| gamer.take_card }
-  end
+  # def step_game
+  #   @gamers.each { |gamer| gamer.take_card }
+  # end
 
   def get_game(game)
     @control_game = game
+  end
+  def win_gamer(gamer)
+    @win_gamer << gamer
   end
 end

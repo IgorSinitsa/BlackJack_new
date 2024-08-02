@@ -4,6 +4,7 @@ class ControlGame
   def initialize
     @number_rounds = 3
     @round = 0
+    @stop_game
   end
 
   def play(casino)
@@ -22,14 +23,24 @@ class ControlGame
   end
 
   def human(gamer)
-    gamer.take_card
-    puts "Игрок #{gamer.name} - очки #{gamer.scope}"
-    puts "#{gamer.cards}"
+    gamer.take_card if @round == 1
+    show_card(gamer)
   end
 
   def robot(gamer)
-    gamer.take_card if @round <=2
-    gamer.take_card if @round ==3 && (gamer.scope + gamer.bonus) <= 17
+    gamer.take_card if @round <= 2
+    gamer.take_card if @round == 3 && (gamer.scope + gamer.bonus) <= 17
+    show_card_robot(gamer)
+    show_card(gamer)
+  end
+  def show_card_robot(gamer)
+    puts "Игрок #{gamer.name} "
+    print "["
+    gamer.cards. each { |card |print " * "}
+    print "] \n"
+  end
+
+  def show_card(gamer)
     puts "Игрок #{gamer.name} - очки #{gamer.scope + gamer.bonus}"
     puts "#{gamer.cards}"
   end
