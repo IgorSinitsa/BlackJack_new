@@ -53,12 +53,11 @@ class Casino
       gamers.each do |gamer|
         puts "Выиграл игрок #{gamer.name} , сумма выигрыша #{@total_money / count}"
         gamer.win(@total_money / count)
+        @total_money = 0
       end
     else
-      puts "Выигрывших нет, ставки возвращаются игрокам"
-      count = @gamers.count
-      @gamers.each {|gamer| gamer.win(@total_money / count) }
+      puts "Выигрывших нет, ставки остаются в банке"
+
     end
-    @total_money = 0
   end
 end
