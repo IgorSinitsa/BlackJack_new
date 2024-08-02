@@ -19,7 +19,7 @@ class Cards
   def send_card
     @card_index += 1
     load_card
-    @cards[@card_index]
+    @card
   end
 
   def shafle
