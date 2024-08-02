@@ -18,6 +18,7 @@ class Cards
 
   def send_card
     @card_index += 1
+    shafle if @card_index == @cards.count - 1
     load_card
     @card
   end
