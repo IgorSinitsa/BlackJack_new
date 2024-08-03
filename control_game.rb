@@ -1,3 +1,4 @@
+# этот класс заменен другим классом BlackJack
 class ControlGame
   attr_reader :number_rounds, :round, :win_gamers
 
@@ -34,25 +35,26 @@ class ControlGame
     @win_gamers = win_gamers
   end
 
-  def play_type(gamers)
-    gamers.each do |gamer|
-      method(gamer.type_gamer).call(gamer)
-    end
-  end
+  # def play_type(gamers)
+  #   gamers.each do |gamer|
+  #     method(gamer.type_gamer).call(gamer)
+  #   end
+  # end
 
-  def human(gamer)
-    show_card(gamer)
-    @round == 1 ? gamer.take_card : menu(gamer)
-  end
+  # def human(gamer)
+  #   show_card(gamer)
+
+  #   @round == 3 ?  menu(gamer) : gamer.take_card
+  # end
 
   def menu(gamer)
     puts 'Выберите действие'
     puts '0 - открыть карты'
     puts '1 - пропустить'
-    puts '2 - взять карту' if gamer.cards.count == round - 1
+    puts '2 - взять карту'
     number = gets.chomp.to_i
     @stop_game = true if number.zero?
-    gamer.take_card if number == 2 && gamer.cards.count == round - 1
+    gamer.take_card if number == 2
   end
 
   def robot(gamer)
@@ -69,20 +71,30 @@ class ControlGame
   end
 
   def show_card(gamer)
-    puts "Игрок #{gamer.name} - очки #{gamer.scope + gamer.bonus}"
+    scope = gamer.scope + gamer.bonus > 21 ? gamer.scope : gamer.scope + gamer.bonus
+    puts "Игрок #{gamer.name} - очки #{scope}"
     puts "#{gamer.cards}"
   end
 
   def in_round(gamers)
-    @round += 1
-    if @round > @number_rounds || @stop_game
-      @round = 0
-      stop_game(gamers)
-      false
-    else
-      puts "Раунд #{@round}"
-      play_type(gamers)
-      true
+    @round = 3
+    human = []
+    robot = []
+    gamers.each do |gamer|
+      gamer.take_card
+      gamer.take_card
+      human << gamer if gamer.type_gamer == :human
+      robot << gamer if gamer.type_gamer == :robot
+
     end
+    human.each do |gamer|
+    show_card(gamer)
+    menu(gamer)
+    end
+
+    robot.each {|gamer| robot(gamer)} unless @stop_game
+    # gamers.each {|gamer| show_card(gamer) }
+    stop_game(gamers)
+    false
   end
 end

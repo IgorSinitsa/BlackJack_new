@@ -7,8 +7,11 @@ require "./gamer"
 require "./dealer"
 require "./casino"
 require "./control_game"
+require "./black_jack.rb"
 casino = Casino.new("777")
-black_jack = ControlGame.new
+
+black_jack = BlackJack.new
+# black_jack = ControlGame.new
 casino.get_game(black_jack)
 k = Dealer.new
 # m = Dealer.new()

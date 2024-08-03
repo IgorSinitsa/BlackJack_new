@@ -38,7 +38,9 @@ class Gamer
   end
 
   def win(money)
+    puts @money
     @money += money
+    puts @money
   end
 
   def play; end

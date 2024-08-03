@@ -21,6 +21,7 @@ class Casino
     loop do
       @gamers.each do |gamer|
         gamer.init
+        puts "*************************************************"
         puts "У игрока #{gamer.name} #{gamer.money} монет"
       end
       start_game
@@ -38,7 +39,7 @@ class Casino
       @total_money += gamer.pay_money
     end
     loop do
-      break unless @control_game.play(self)
+      break unless @control_game.Start(self)
     end
     win_gamer(@control_game.win_gamers)
   end
@@ -49,11 +50,13 @@ class Casino
 
   def win_gamer(gamers)
     @win_gamers << gamers
-    if !gamers.nil?
+    if !gamers.empty?
       count = gamers.count
+      money =   count.zero? ?  0 : @total_money / count
       gamers.each do |gamer|
-        puts "Выиграл игрок #{gamer.name} , сумма выигрыша #{@total_money / count}"
-        gamer.win(@total_money / count)
+
+        puts "Выиграл игрок #{gamer.name} , сумма выигрыша #{money}  !!!!"
+        gamer.win(money)
       end
       @total_money = 0
     else
