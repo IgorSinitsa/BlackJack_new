@@ -11,11 +11,13 @@ class Gamer
     init
   end
 
-  def take_card
+  def take_card(number)
+    (1..number).each do
     card = @deck.send_card
     @cards << card[0]
     @scope += card[1]
     @bonus = 10 if card[1] == 1
+    end
   end
 
   def show_card
