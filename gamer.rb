@@ -11,7 +11,7 @@ class Gamer
     init
   end
 
-  def take_card(number)
+  def take_card(number = 1)
     (1..number).each do
     card = @deck.send_card
     @cards << card[0]
